@@ -1,9 +1,9 @@
-package pe.edu.upc.gamarraapp
+package pe.edu.upc.gamarraapp.activities
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import pe.edu.upc.gamarraapp.R
 
 class MainActivity : AppCompatActivity() {
 
