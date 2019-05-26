@@ -3,8 +3,10 @@ package pe.edu.upc.gamarraapp.controllers.activities
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.SearchView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -60,6 +62,30 @@ class MainActivity : AppCompatActivity() {
         (menu.findItem(R.id.search).actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
         }
+
+
+        val searchView: SearchView = (menu.findItem(R.id.search).actionView as SearchView)
+        searchView.setIconifiedByDefault(false)
+        /*searchView.setOnSearchClickListener {
+            Log.d("search","Buscar: " + searchView.query)
+        }
+
+        searchView.setOnQueryTextFocusChangeListener { view: View, b: Boolean ->
+            Log.d("search","Buscar: " + searchView.query.toString())
+        }*/
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                Log.d("search","Buscar: " + searchView.query.toString())
+                return false
+            }
+
+        })
 
         return true
     }
