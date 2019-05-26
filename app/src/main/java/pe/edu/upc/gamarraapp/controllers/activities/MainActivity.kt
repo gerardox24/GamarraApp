@@ -5,6 +5,7 @@ import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import pe.edu.upc.gamarraapp.R
 import pe.edu.upc.gamarraapp.controllers.fragments.BagFragment
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
 
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         navigateTo(navView.menu.findItem(R.id.navigation_categories))
+
+        val myToolbar: Toolbar  = findViewById(R.id.my_toolbar)
+        setSupportActionBar(myToolbar)
     }
 
     private fun getFragmentFor(item: MenuItem): Fragment {
