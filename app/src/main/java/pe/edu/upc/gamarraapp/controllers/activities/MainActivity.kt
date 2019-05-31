@@ -2,6 +2,7 @@ package pe.edu.upc.gamarraapp.controllers.activities
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,6 +18,7 @@ import pe.edu.upc.gamarraapp.R
 import pe.edu.upc.gamarraapp.controllers.fragments.BagFragment
 import pe.edu.upc.gamarraapp.controllers.fragments.CategoriesFragment
 import pe.edu.upc.gamarraapp.controllers.fragments.ProfileFragment
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity() {
 
@@ -82,6 +84,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 Log.d("search","Buscar: " + searchView.query.toString())
+
+                val intent = Intent(searchView.getContext(), SearchClothesActivity::class.java)
+                intent.putExtra("cloth",  query)
+                searchView.getContext().startActivity(intent)
+
                 return false
             }
 
