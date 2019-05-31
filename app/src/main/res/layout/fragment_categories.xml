@@ -14,7 +14,9 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/clothesRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="match_parent"
+                android:layout_marginTop="60dp"
+                android:paddingBottom="60dp"></androidx.recyclerview.widget.RecyclerView>
 
     </ScrollView>
 

@@ -1,28 +1,30 @@
 package pe.edu.upc.gamarraapp.controllers.fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_categories.*
+import kotlinx.android.synthetic.main.item_clothe.view.*
 
 import pe.edu.upc.gamarraapp.R
-import pe.edu.upc.gamarraapp.adapters.ClotheAdapter
-import pe.edu.upc.gamarraapp.models.Clothe
+import pe.edu.upc.gamarraapp.adapters.ClothesAdapter
+import pe.edu.upc.gamarraapp.controllers.activities.ItemDetailActivity
+import pe.edu.upc.gamarraapp.controllers.activities.MainActivity
+import pe.edu.upc.gamarraapp.models.Clothes
 import pe.edu.upc.gamarraapp.network.GamarraApi
+import pe.edu.upc.gamarraapp.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import androidx.recyclerview.widget.RecyclerView
-
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,10 +37,10 @@ private const val ARG_PARAM2 = "param2"
  */
 class CategoriesFragment : Fragment() {
 
-    lateinit var clotheAdapter: ClotheAdapter
+    lateinit var clothesAdapter: ClothesAdapter
     lateinit var service: GamarraApi
 
-    var clothes: List<Clothe> = ArrayList()
+    var clothes: List<Clothes> = ArrayList()
     val TAG_LOGS = "clothes"
 
     override fun onCreateView(
@@ -51,41 +53,39 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        clotheAdapter = ClotheAdapter(clothes)
+        clothesAdapter = ClothesAdapter(clothes)
         clothesRecyclerView.apply{
-            adapter = clotheAdapter
+            adapter = clothesAdapter
             layoutManager = LinearLayoutManager(this.context)
         }
 
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://quiet-temple-50701.herokuapp.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        service = RetrofitClient.create()
 
-        service = retrofit.create<GamarraApi>(GamarraApi::class.java)
-
-        service.getAllClothes().enqueue(object: Callback<List<Clothe>>{
-            override fun onResponse(call: Call<List<Clothe>>?, response: Response<List<Clothe>>?) {
+        service.getAllClothes().enqueue(object: Callback<List<Clothes>>{
+            override fun onResponse(call: Call<List<Clothes>>?, response: Response<List<Clothes>>?) {
                 var clothesBody = response?.body()
                 Log.i(TAG_LOGS, Gson().toJson(clothesBody))
-                clotheAdapter.clothes = clothesBody.orEmpty()
-                clotheAdapter.notifyDataSetChanged()
+                clothesAdapter.clothes = clothesBody.orEmpty()
+                clothesAdapter.notifyDataSetChanged()
             }
 
-            override fun onFailure(call: Call<List<Clothe>>?, t: Throwable?) {
+            override fun onFailure(call: Call<List<Clothes>>?, t: Throwable?) {
                 t?.printStackTrace()
             }
         })
 
+        val mLayoutManager = GridLayoutManager(activity, 2)
+        clothesRecyclerView.setLayoutManager(mLayoutManager)
+
         /*GamarraConnection.apply {
             requestClothes({
                 it?.apply {
-                    clotheAdapter.clothes = clothes
-                    clotheAdapter.notifyDataSetChanged()
+                    clothesAdapter.clothes = clothes
+                    clothesAdapter.notifyDataSetChanged()
                 }
             },{
-                clotheAdapter.clothes = clothes
-                clotheAdapter.notifyDataSetChanged()
+                clothesAdapter.clothes = clothes
+                clothesAdapter.notifyDataSetChanged()
             })
         }*/
     }
