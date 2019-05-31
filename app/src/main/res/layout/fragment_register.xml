@@ -260,7 +260,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/blue_button_bg"
-                        android:textColorLink="@color/colorPrimary"
+                        android:textColorLink="@color/colorExtra"
                         android:textCursorDrawable="@drawable/blue_button_bg"/>
 
                 <LinearLayout
