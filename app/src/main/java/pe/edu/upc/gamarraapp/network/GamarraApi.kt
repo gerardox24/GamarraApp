@@ -41,8 +41,8 @@ interface GamarraApi {
     @GET("cloth/")
     fun getAllClothes() : Call<List<Clothe>>
 
-    @GET("clothe/{id}")
-    fun getClotheById(@Path("id") id: Int): Call<Clothe>
+    @GET("clothes/{id}")
+    fun getClothesById(@Path("id") id: Int): Call<Clothe>
 
     @GET("clothes")
     fun getAllClothesFilterByName(@Query("name") name: String?) : Call<List<Clothe>>
