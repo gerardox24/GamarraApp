@@ -5,6 +5,7 @@ import android.os.Bundle
 import pe.edu.upc.gamarraapp.R
 
 import kotlinx.android.synthetic.main.activity_cloth.*
+import pe.edu.upc.gamarraapp.controllers.fragments.ShopsResultsFragment
 import pe.edu.upc.gamarraapp.models.Clothe
 import pe.edu.upc.gamarraapp.network.GamarraApi
 import retrofit2.Call
@@ -46,6 +47,11 @@ class ClothActivity : AppCompatActivity() {
 
                 }
             })
+
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.shopsContent, ShopsResultsFragment())
+                .commit() > 0
         }
     }
 }
