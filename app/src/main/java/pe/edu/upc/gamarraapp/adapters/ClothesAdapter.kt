@@ -22,7 +22,9 @@ class ClothesAdapter(var clothes: List<Clothes>) : RecyclerView.Adapter<ClothesA
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val pictureImageView = itemView.pictureImageView
         val titleTextView = itemView.titleTextView
-        val buttonItem = itemView.btn_item
+        val categoryTextView = itemView.itemCategory
+        //val buttonItem = itemView.btn_item
+        val button_aux = itemView.btn_aux
 
         fun bindTo(clothes: Clothes) {
             pictureImageView.apply {
@@ -31,10 +33,14 @@ class ClothesAdapter(var clothes: List<Clothes>) : RecyclerView.Adapter<ClothesA
                 setImageUrl(clothes.urlphoto)
             }
             titleTextView.text = clothes.name
-            val item_id = clothes.id
+            categoryTextView.text = "Categoría: " + clothes.categoryId.name
 
-            buttonItem.setOnClickListener() {
+            button_aux.setOnClickListener { v ->
+                val context = v.context
+                val intent = Intent(context, ItemDetailActivity::class.java)
+                intent.putExtra(ItemDetailActivity.ARG_ITEM_ID, clothes.id)
 
+                context.startActivity(intent)
             }
         }
     }

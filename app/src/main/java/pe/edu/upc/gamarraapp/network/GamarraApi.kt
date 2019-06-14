@@ -9,6 +9,12 @@ import retrofit2.http.*
 
 interface GamarraApi {
 
+    @GET("clothes/")
+    fun getAllClothes() : Call<List<Clothes>>
+
+    @GET("clothes/{id}")
+    fun getClotheById(@Path("id") id: Int): Call<Clothes>
+
     @GET("users/")
     fun getAllUsers(): Call<List<User>>
 
@@ -18,17 +24,7 @@ interface GamarraApi {
     @POST("users/login")
     fun login(@Field("username") username: String, @Field("password") password: String): Call<UserResponse>
 
-    @POST("users/register")
-    fun register(
-        @Field("username") username: String,
-        @Field("password") password: String,
-        @Field("fullname") fullname: String,
-        @Field("email") email: String
-    ): Call<UserResponse>
+    @POST("api/auth/signup")
+    fun register( @Body newUser: User ): Call<UserResponse>
 
-    @GET("clothes/")
-    fun getAllClothes() : Call<List<Clothes>>
-
-    @GET("clothes/{id}")
-    fun getClotheById(@Path("id") id: Int): Call<Clothes>
 }

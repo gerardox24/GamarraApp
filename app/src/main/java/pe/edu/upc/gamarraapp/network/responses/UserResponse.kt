@@ -1,7 +1,9 @@
 package pe.edu.upc.gamarraapp.network.responses
 
+import java.io.Serializable
+
 abstract class UserResponse(
-    val status: String
-) {
+    val message: String
+):Serializable {
     constructor() : this("")
 }

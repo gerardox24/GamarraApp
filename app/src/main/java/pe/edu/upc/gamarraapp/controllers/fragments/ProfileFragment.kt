@@ -9,12 +9,17 @@ import android.view.ViewGroup
 
 import pe.edu.upc.gamarraapp.R
 import android.app.ProgressDialog
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import com.fasterxml.jackson.databind.ser.impl.StringArraySerializer
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.user_login.*
+import kotlinx.android.synthetic.main.user_login.view.*
 import pe.edu.upc.gamarraapp.models.User
 import pe.edu.upc.gamarraapp.network.GamarraApi
+import pe.edu.upc.gamarraapp.network.ServiceBuilder
+import pe.edu.upc.gamarraapp.network.responses.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,10 +56,22 @@ class ProfileFragment : Fragment() {
 
         getAllUsers()
         getUserById()
+
+        //showRegisterLogin()
         //login()
 
         // Inflate the layout for this fragment
-        return inflater.inflate(pe.edu.upc.gamarraapp.R.layout.user_login, container, false)
+        return inflater!!.inflate(R.layout.user_login, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        showRegisterLogin()
+
+        btn_register.setOnClickListener {
+            register()
+        }
     }
 
     fun getAllUsers() {
@@ -84,9 +101,50 @@ class ProfileFragment : Fragment() {
     }
 
 
-    fun register_fragment() {
+    fun register() {
+        val newUser = User()
+        newUser.username = register_username.text.toString()
+        newUser.password = register_password.text.toString()
+        newUser.email = register_email.text.toString()
+        newUser.name = register_fullname.text.toString()
+        newUser.role = arrayOf("USER")
 
+        val password = register_password.text.toString()
+        val confirm_password = register_confirm_password.text.toString()
+
+        if(password.equals(confirm_password)){
+            val clothesService = ServiceBuilder.buildService(GamarraApi::class.java)
+            val requestCall = clothesService.register(newUser)
+
+            requestCall.enqueue(object: Callback<UserResponse> {
+                override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                    if(response.isSuccessful) {
+                        val result = response.body()!!
+                        Toast.makeText(activity, result.message, Toast.LENGTH_LONG).show()
+                        register_layout.visibility = View.GONE
+                        login_layout.visibility = View.VISIBLE
+                    }else{
+                        Toast.makeText(activity, response.errorBody().toString(), Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    Toast.makeText(activity, "Failed to create new user 2", Toast.LENGTH_LONG).show()
+                }
+            })
+        }else{
+            Toast.makeText(activity,"Las contraseñas no coinciden", Toast.LENGTH_LONG).show()
+        }
     }
 
-
+    fun showRegisterLogin() {
+        link_register.setOnClickListener {
+            login_layout.visibility = View.GONE
+            register_layout.visibility = View.VISIBLE
+        }
+        link_login.setOnClickListener {
+            register_layout.visibility = View.GONE
+            login_layout.visibility = View.VISIBLE
+        }
+    }
 }

@@ -9,10 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_categories.*
+import kotlinx.android.synthetic.main.item_clothe.*
 import kotlinx.android.synthetic.main.item_clothe.view.*
 
 import pe.edu.upc.gamarraapp.R
@@ -22,6 +24,7 @@ import pe.edu.upc.gamarraapp.controllers.activities.MainActivity
 import pe.edu.upc.gamarraapp.models.Clothes
 import pe.edu.upc.gamarraapp.network.GamarraApi
 import pe.edu.upc.gamarraapp.network.RetrofitClient
+import pe.edu.upc.gamarraapp.network.ServiceBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,8 +62,7 @@ class CategoriesFragment : Fragment() {
             layoutManager = LinearLayoutManager(this.context)
         }
 
-        service = RetrofitClient.create()
-
+        /*service = RetrofitClient.create()
         service.getAllClothes().enqueue(object: Callback<List<Clothes>>{
             override fun onResponse(call: Call<List<Clothes>>?, response: Response<List<Clothes>>?) {
                 var clothesBody = response?.body()
@@ -72,21 +74,45 @@ class CategoriesFragment : Fragment() {
             override fun onFailure(call: Call<List<Clothes>>?, t: Throwable?) {
                 t?.printStackTrace()
             }
-        })
+        })*/
 
-        val mLayoutManager = GridLayoutManager(activity, 2)
-        clothesRecyclerView.setLayoutManager(mLayoutManager)
+        loadClothes()
+    }
 
-        /*GamarraConnection.apply {
-            requestClothes({
-                it?.apply {
-                    clothesAdapter.clothes = clothes
-                    clothesAdapter.notifyDataSetChanged()
+    private fun loadClothes() {
+        val clothesService = ServiceBuilder.buildService(GamarraApi::class.java)
+        val requestCall = clothesService.getAllClothes()
+
+
+        requestCall.enqueue(object : Callback<List<Clothes>> {
+            override fun onResponse(call: Call<List<Clothes>>, response: Response<List<Clothes>>) {
+                if(response.isSuccessful) {
+                    var clothesList = response.body()!!
+
+                    clothesRecyclerView.adapter = ClothesAdapter(clothesList)
+                }else{
+                    Toast.makeText(activity,"Failed to retrieve clothes", Toast.LENGTH_LONG).show()
                 }
-            },{
+            }
+
+            override fun onFailure(call: Call<List<Clothes>>, t: Throwable) {
+                Toast.makeText(activity,"Failed to retrieve clothes", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    /*val mLayoutManager = GridLayoutManager(activity, 2)
+    clothesRecyclerView.setLayoutManager(mLayoutManager)*/
+
+    /*GamarraConnection.apply {
+        requestClothes({
+            it?.apply {
                 clothesAdapter.clothes = clothes
                 clothesAdapter.notifyDataSetChanged()
-            })
-        }*/
-    }
+            }
+        },{
+            clothesAdapter.clothes = clothes
+            clothesAdapter.notifyDataSetChanged()
+        })
+    }*/
 }
