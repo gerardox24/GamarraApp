@@ -55,4 +55,7 @@ interface GamarraApi {
 
     @POST("api/auth/signin")
     fun signIn(@Body signInRequest: SignInRequest): Call<JwtResponse>
+
+    @POST("users/{userId}/markers")
+    fun saveMaker(@Path("userId") userId: Int, @Body cloth: Clothe, @Header("Authorization") auth: String): Call<Object>
 }
