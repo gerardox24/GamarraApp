@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_clothe.view.*
 import pe.edu.upc.gamarraapp.R
@@ -17,6 +18,7 @@ class ClotheAdapter(var clothes: List<Clothe>) : RecyclerView.Adapter<ClotheAdap
         val pictureImageView = itemView.pictureImageView
         val titleTextView = itemView.titleTextView
         val moreButton = itemView.moreButton
+        val clothCard = itemView.clothItem
         // TODO Revisar la forma adecuada de inicializar la variable
         var clothId: Int = 5
 
@@ -34,6 +36,16 @@ class ClotheAdapter(var clothes: List<Clothe>) : RecyclerView.Adapter<ClotheAdap
                 intent.putExtra("id", clothId)
                 Log.d("cloth", clothId.toString())
                 it.context.startActivity(intent)
+            }
+
+            clothCard.setOnLongClickListener {
+                val text = "Se agregó a la bolsa!"
+                val duration = Toast.LENGTH_SHORT
+
+                val toast = Toast.makeText(it.context, text, duration)
+                toast.show()
+
+                true
             }
         }
     }
