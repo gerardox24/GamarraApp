@@ -64,10 +64,7 @@ class ProfileFragment(var supportFragmentManager: FragmentManager) : Fragment() 
         } else {
             Log.d("Login", "El usuario se encuentra autenticado")
             Log.d("Login", "El token del usuario es ${accessTokenSharedPref}")
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.content, BagFragment())
-                .commit() > 0
+            goToProfileSignIn()
         }
 
         val retrofit: Retrofit = Retrofit.Builder()
@@ -99,10 +96,19 @@ class ProfileFragment(var supportFragmentManager: FragmentManager) : Fragment() 
                             }
                             commit()
                         }
+
+                        goToProfileSignIn()
                     }
                 }
             })
         }
+    }
+
+    fun goToProfileSignIn() {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.content, ProfileSignInFragment(supportFragmentManager))
+            .commit() > 0
     }
 
     fun getAllUsers() {
