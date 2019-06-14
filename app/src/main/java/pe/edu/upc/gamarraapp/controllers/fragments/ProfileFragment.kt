@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 
 import pe.edu.upc.gamarraapp.R
-import android.app.ProgressDialog
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.user_login.*
 import pe.edu.upc.gamarraapp.models.User
 import pe.edu.upc.gamarraapp.network.GamarraApi
+import pe.edu.upc.gamarraapp.network.requests.SignInRequest
+import pe.edu.upc.gamarraapp.network.responses.JwtResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,19 +43,39 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        //getAllUsers()
+        //getUserById()
+        //login()
+
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.user_login, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://gamarra-app.herokuapp.com/api/")
+            .baseUrl("http://quiet-temple-50701.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         service = retrofit.create<GamarraApi>(GamarraApi::class.java)
 
-        getAllUsers()
-        getUserById()
-        //login()
+        btn_login.setOnClickListener {
+            var signInRequest = SignInRequest(input_username.text.toString(), input_password.text.toString())
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(pe.edu.upc.gamarraapp.R.layout.user_login, container, false)
+            service.signIn(signInRequest).enqueue(object: Callback<JwtResponse> {
+                override fun onFailure(call: Call<JwtResponse>, t: Throwable) {
+                    t?.printStackTrace()
+                }
+
+                override fun onResponse(call: Call<JwtResponse>, response: Response<JwtResponse>) {
+                    val jwtResponseBody = response?.body()
+                    Log.i(TAG,Gson().toJson(jwtResponseBody))
+                    
+                }
+            })
+        }
     }
 
     fun getAllUsers() {
