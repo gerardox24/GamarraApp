@@ -50,7 +50,7 @@ class ClothActivity : AppCompatActivity() {
 
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.shopsContent, ShopsResultsFragment())
+                .replace(R.id.shopsContent, ShopsResultsFragment(clothId))
                 .commit() > 0
         }
     }
