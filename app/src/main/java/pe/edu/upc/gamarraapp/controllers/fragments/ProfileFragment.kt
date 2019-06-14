@@ -1,6 +1,7 @@
 package pe.edu.upc.gamarraapp.controllers.fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -54,6 +55,18 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Revisa si el usuario ya se encuentra autenticado
+        val sharedPref = activity?.getSharedPreferences("gamarra-app-shared-preferences", Context.MODE_PRIVATE) ?: return
+        val accessTokenSharedPref = sharedPref.getString("accessToken", "")
+        val idSharedPref = sharedPref.getInt("id", 0)
+
+        if(idSharedPref == 0) {
+            Log.d("Login", "El usuario no se encuentra autenticado")
+        } else {
+            Log.d("Login", "El usuario se encuentra autenticado")
+            Log.d("Login", "El token del usuario es ${accessTokenSharedPref}")
+        }
+
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("http://quiet-temple-50701.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -70,9 +83,20 @@ class ProfileFragment : Fragment() {
                 }
 
                 override fun onResponse(call: Call<JwtResponse>, response: Response<JwtResponse>) {
-                    val jwtResponseBody = response?.body()
+                    val jwtResponseBody: JwtResponse? = response?.body()
                     Log.i(TAG,Gson().toJson(jwtResponseBody))
-                    
+
+                    jwtResponseBody?.apply {
+                        with (sharedPref.edit()) {
+                            putString("accessToken", accessToken)
+                            commit()
+
+                            id?.apply {
+                                putInt("id",this)
+                            }
+                            commit()
+                        }
+                    }
                 }
             })
         }
