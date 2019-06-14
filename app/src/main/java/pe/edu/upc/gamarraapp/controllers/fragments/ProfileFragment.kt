@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import pe.edu.upc.gamarraapp.R
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.user_login.*
 import pe.edu.upc.gamarraapp.models.User
@@ -33,38 +34,40 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class ProfileFragment : Fragment() {
+class ProfileFragment(var supportFragmentManager: FragmentManager) : Fragment() {
 
     val TAG = "Login"
 
     lateinit var service: GamarraApi
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        //getAllUsers()
-        //getUserById()
-        //login()
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.user_login, container, false)
+            return inflater.inflate(R.layout.user_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val sharedPref = activity?.getSharedPreferences("gamarra-app-shared-preferences", Context.MODE_PRIVATE) ?: return
+
 
         // Revisa si el usuario ya se encuentra autenticado
-        val sharedPref = activity?.getSharedPreferences("gamarra-app-shared-preferences", Context.MODE_PRIVATE) ?: return
         val accessTokenSharedPref = sharedPref.getString("accessToken", "")
         val idSharedPref = sharedPref.getInt("id", 0)
 
         if(idSharedPref == 0) {
             Log.d("Login", "El usuario no se encuentra autenticado")
+            // Inflate the layout for this fragment
+
         } else {
             Log.d("Login", "El usuario se encuentra autenticado")
             Log.d("Login", "El token del usuario es ${accessTokenSharedPref}")
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, BagFragment())
+                .commit() > 0
         }
 
         val retrofit: Retrofit = Retrofit.Builder()

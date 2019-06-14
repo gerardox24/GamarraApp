@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         return when(item.itemId) {
             R.id.navigation_categories -> CategoriesFragment()
             R.id.navigation_bag -> BagFragment()
-            R.id.navigation_profile -> ProfileFragment()
+            R.id.navigation_profile -> ProfileFragment(supportFragmentManager)
             else -> CategoriesFragment()
         }
     }
