@@ -15,6 +15,8 @@ import pe.edu.upc.gamarraapp.models.User
 import com.androidnetworking.interfaces.JSONArrayRequestListener
 import pe.edu.upc.gamarraapp.models.Clothe
 import pe.edu.upc.gamarraapp.models.Shop
+import pe.edu.upc.gamarraapp.network.requests.SignInRequest
+import pe.edu.upc.gamarraapp.network.responses.JwtResponse
 import pe.edu.upc.gamarraapp.network.responses.UserResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -50,4 +52,7 @@ interface GamarraApi {
 
     @GET("clothes/{id}/shops")
     fun getShopsByClothId(@Path("id") id: Int) : Call<List<Shop>>
+
+    @POST("api/auth/signin")
+    fun signIn(@Body signInRequest: SignInRequest): Call<JwtResponse>
 }
