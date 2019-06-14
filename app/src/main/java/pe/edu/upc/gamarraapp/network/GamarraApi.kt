@@ -58,4 +58,7 @@ interface GamarraApi {
 
     @POST("users/{userId}/markers")
     fun saveMaker(@Path("userId") userId: Int, @Body cloth: Clothe, @Header("Authorization") auth: String): Call<Object>
+
+    @GET("users/{userId}/markers")
+    fun getAllMarkers(@Path("userId") userId: Int, @Header("Authorization") auth: String) : Call<List<Clothe>>
 }
