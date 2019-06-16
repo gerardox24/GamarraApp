@@ -79,7 +79,7 @@ class ProfileFragment(var supportFragmentManager: FragmentManager) : Fragment() 
         service = retrofit.create<GamarraApi>(GamarraApi::class.java)
 
         btn_login.setOnClickListener {
-            /* TODO Prueba crear una cuenta*/
+            /* TODO Prueba crear una cuenta
             var signUpRequest = SignUpRequest()
             signUpRequest.name = "dasdsas"
             signUpRequest.email = "asdasd@gmail.com"
@@ -98,7 +98,7 @@ class ProfileFragment(var supportFragmentManager: FragmentManager) : Fragment() 
                 }
             })
 
-            /* TODO Termina la prueba*/
+             TODO Termina la prueba*/
 
             var signInRequest = SignInRequest(input_username.text.toString(), input_password.text.toString())
 
