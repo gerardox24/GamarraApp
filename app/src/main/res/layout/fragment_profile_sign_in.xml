@@ -7,7 +7,12 @@
 
     <Button
             android:layout_marginTop="100dp"
+            android:text="Ver negocios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/businessButton"/>
+    <Button
+            android:layout_marginTop="180dp"
             android:text="Cerrar sesión"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/logoutButton"/>
 </FrameLayout>
