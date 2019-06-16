@@ -17,12 +17,16 @@ import kotlinx.android.synthetic.main.user_login.*
 import pe.edu.upc.gamarraapp.models.User
 import pe.edu.upc.gamarraapp.network.GamarraApi
 import pe.edu.upc.gamarraapp.network.requests.SignInRequest
+import pe.edu.upc.gamarraapp.network.requests.SignUpRequest
 import pe.edu.upc.gamarraapp.network.responses.JwtResponse
+import pe.edu.upc.gamarraapp.network.responses.SignUpResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
+import kotlin.collections.HashSet
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -75,6 +79,27 @@ class ProfileFragment(var supportFragmentManager: FragmentManager) : Fragment() 
         service = retrofit.create<GamarraApi>(GamarraApi::class.java)
 
         btn_login.setOnClickListener {
+            /* TODO Prueba crear una cuenta*/
+            var signUpRequest = SignUpRequest()
+            signUpRequest.name = "dasdsas"
+            signUpRequest.email = "asdasd@gmail.com"
+            signUpRequest.username = "sdasdasds"
+            signUpRequest.role = HashSet<String>(Arrays.asList("user"))
+            signUpRequest.password = "sdasdasdasd1"
+
+            service.signUp(signUpRequest).enqueue(object : Callback<SignUpResponse> {
+                override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+                    t?.printStackTrace()
+                }
+
+                override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
+                    val jwtResponseBody: SignUpResponse? = response?.body()
+                    Log.i(TAG,Gson().toJson(jwtResponseBody))
+                }
+            })
+
+            /* TODO Termina la prueba*/
+
             var signInRequest = SignInRequest(input_username.text.toString(), input_password.text.toString())
 
             service.signIn(signInRequest).enqueue(object: Callback<JwtResponse> {
