@@ -15,6 +15,15 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <activity
+                android:name=".controllers.activities.BusinessesActivity"
+                android:label="@string/title_activity_businesses"
+                android:parentActivityName=".controllers.activities.MainActivity"
+                android:theme="@style/NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="pe.edu.upc.gamarraapp.controllers.activities.MainActivity"/>
+        </activity>
         <activity android:name=".controllers.activities.ClothActivity">
         </activity>
         <activity android:name=".controllers.activities.SearchClothesActivity">

@@ -2,6 +2,7 @@ package pe.edu.upc.gamarraapp.controllers.fragments
 
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.fragment_profile_sign_in.*
 
 import pe.edu.upc.gamarraapp.R
+import pe.edu.upc.gamarraapp.controllers.activities.BusinessesActivity
+import pe.edu.upc.gamarraapp.controllers.activities.SearchClothesActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +55,11 @@ class ProfileSignInFragment(var supportFragmentManager: FragmentManager) : Fragm
                 .beginTransaction()
                 .replace(R.id.content, ProfileFragment(supportFragmentManager))
                 .commit() > 0
+        }
+
+        businessButton.setOnClickListener {
+            val intent = Intent(it.context, BusinessesActivity::class.java)
+            it.context.startActivity(intent)
         }
     }
 }
