@@ -102,7 +102,7 @@ class ProfileFragment : Fragment() {
 
 
     fun register() {
-        val newUser = User()
+        var newUser = User()
         newUser.username = register_username.text.toString()
         newUser.password = register_password.text.toString()
         newUser.email = register_email.text.toString()
@@ -112,9 +112,14 @@ class ProfileFragment : Fragment() {
         val password = register_password.text.toString()
         val confirm_password = register_confirm_password.text.toString()
 
+        val clothesService = ServiceBuilder.buildService(GamarraApi::class.java)
+        val requestCall = clothesService.register(newUser)
+
+        val log = requestCall.request().body()
+        Log.d("SUPERTAG", "TAGTAG")
+        Log.d("HELP", Gson().toJson(log))
+
         if(password.equals(confirm_password)){
-            val clothesService = ServiceBuilder.buildService(GamarraApi::class.java)
-            val requestCall = clothesService.register(newUser)
 
             requestCall.enqueue(object: Callback<UserResponse> {
                 override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
