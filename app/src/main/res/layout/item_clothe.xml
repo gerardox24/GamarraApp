@@ -6,7 +6,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardElevation="4dp"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:id="@+id/clothItem">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

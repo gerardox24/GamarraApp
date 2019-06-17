@@ -98,10 +98,33 @@
                         android:id="@+id/item_size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="10dp"
                         android:text="Size"
                         android:textSize="13dp"
                         android:textColor="#292929"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Puedes encontrar esta prenda en:"
+                        android:textColor="#303030"
+                        android:textSize="15dp"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="5dp">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/shopList"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:paddingBottom="60dp"></androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

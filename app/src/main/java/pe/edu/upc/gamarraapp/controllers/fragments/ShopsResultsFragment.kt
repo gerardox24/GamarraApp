@@ -1,7 +1,6 @@
 package pe.edu.upc.gamarraapp.controllers.fragments
 
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_bag.*
+import kotlinx.android.synthetic.main.fragment_shops_results.*
 
 import pe.edu.upc.gamarraapp.R
-import pe.edu.upc.gamarraapp.adapters.ClothesAdapter
-import pe.edu.upc.gamarraapp.models.Clothes
+import pe.edu.upc.gamarraapp.adapters.ShopAdapter
+import pe.edu.upc.gamarraapp.models.Shop
 import pe.edu.upc.gamarraapp.network.GamarraApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,27 +30,27 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class BagFragment : Fragment() {
+class ShopsResultsFragment(val clothId : Int) : Fragment() {
 
-    lateinit var clothAdapter: ClothesAdapter
+    lateinit var shopAdapter: ShopAdapter
     lateinit var service: GamarraApi
 
-    var clothes: List<Clothes> = ArrayList()
-    val TAG_LOGS = "BAG_SECTION"
+    var shops: List<Shop> = ArrayList()
+    val TAG_LOGS = "shops"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bag, container, false)
+        return inflater.inflate(R.layout.fragment_shops_results, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        clothAdapter = ClothesAdapter(clothes)
-        bagClothRecyclerView.apply{
-            adapter = clothAdapter
+        shopAdapter = ShopAdapter(shops)
+        shopsResultsRecyclerView.apply{
+            adapter = shopAdapter
             layoutManager = LinearLayoutManager(this.context)
         }
 
@@ -61,19 +60,16 @@ class BagFragment : Fragment() {
             .build()
 
         service = retrofit.create<GamarraApi>(GamarraApi::class.java)
-        val sharedPref = activity?.getSharedPreferences("gamarra-app-shared-preferences", Context.MODE_PRIVATE) ?: return
-        val id = sharedPref.getInt("id", 0)
-        val accessToken = sharedPref.getString("accessToken", "")
-        Log.d("BAG_SECTION", id.toString())
-        service.getAllMarkers(id, "Bearer ${accessToken}").enqueue(object: Callback<List<Clothes>> {
-            override fun onResponse(call: Call<List<Clothes>>?, response: Response<List<Clothes>>?) {
-                var clothesBody = response?.body()
-                Log.i(TAG_LOGS, Gson().toJson(clothesBody))
-                clothAdapter.clothes = clothesBody.orEmpty()
-                clothAdapter.notifyDataSetChanged()
+
+        service.getShopsByClothesId(clothId).enqueue(object: Callback<List<Shop>> {
+            override fun onResponse(call: Call<List<Shop>>?, response: Response<List<Shop>>?) {
+                var shopsBody = response?.body()
+                Log.i(TAG_LOGS, Gson().toJson(shopsBody))
+                shopAdapter.shops = shopsBody.orEmpty()
+                shopAdapter.notifyDataSetChanged()
             }
 
-            override fun onFailure(call: Call<List<Clothes>>?, t: Throwable?) {
+            override fun onFailure(call: Call<List<Shop>>?, t: Throwable?) {
                 t?.printStackTrace()
             }
         })

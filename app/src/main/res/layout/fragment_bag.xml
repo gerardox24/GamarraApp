@@ -4,10 +4,8 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".controllers.fragments.BagFragment">
-
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/gradient_bg"></ScrollView>
-
+    <androidx.recyclerview.widget.RecyclerView android:layout_width="match_parent"
+                                               android:layout_height="match_parent"
+                                                android:id="@+id/bagClothRecyclerView">
+    </androidx.recyclerview.widget.RecyclerView>
 </FrameLayout>
