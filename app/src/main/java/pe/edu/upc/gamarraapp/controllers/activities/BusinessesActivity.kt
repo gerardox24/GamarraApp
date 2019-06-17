@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import pe.edu.upc.gamarraapp.R
 
 import kotlinx.android.synthetic.main.activity_businesses.*
+import pe.edu.upc.gamarraapp.controllers.fragments.BusinessesFragment
 
 class BusinessesActivity : AppCompatActivity() {
 
@@ -20,6 +21,11 @@ class BusinessesActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Negocios"
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.businessContent, BusinessesFragment())
+            .commit() > 0
     }
 
 }
