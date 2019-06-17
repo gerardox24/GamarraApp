@@ -13,6 +13,7 @@ import pe.edu.upc.gamarraapp.GamarraApp
 import pe.edu.upc.gamarraapp.R
 import pe.edu.upc.gamarraapp.models.User
 import com.androidnetworking.interfaces.JSONArrayRequestListener
+import pe.edu.upc.gamarraapp.models.Business
 import pe.edu.upc.gamarraapp.models.Clothe
 import pe.edu.upc.gamarraapp.models.Shop
 import pe.edu.upc.gamarraapp.network.requests.SignInRequest
@@ -66,4 +67,7 @@ interface GamarraApi {
 
     @GET("users/{userId}/markers")
     fun getAllMarkers(@Path("userId") userId: Int, @Header("Authorization") auth: String) : Call<List<Clothe>>
+
+    @GET("users/{userId}/businesses")
+    fun getAllBusinessByUserId(@Path("userId") userId: Int, @Header("Authorization") auth: String): Call<List<Business>>
 }
