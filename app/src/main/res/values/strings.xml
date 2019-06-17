@@ -9,4 +9,5 @@
     <string name="search_title">Buscar</string>
     <string name="search_hint">Vestidos</string>
     <string name="title_activity_businesses">BusinessesActivity</string>
+    <string name="title_activity_business_register">BusinessRegisterActivity</string>
 </resources>
