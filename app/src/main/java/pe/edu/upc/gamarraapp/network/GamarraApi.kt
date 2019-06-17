@@ -13,6 +13,7 @@ import pe.edu.upc.gamarraapp.GamarraApp
 import pe.edu.upc.gamarraapp.R
 import pe.edu.upc.gamarraapp.models.User
 import com.androidnetworking.interfaces.JSONArrayRequestListener
+import okhttp3.ResponseBody
 import pe.edu.upc.gamarraapp.models.Business
 import pe.edu.upc.gamarraapp.models.Clothe
 import pe.edu.upc.gamarraapp.models.Shop
@@ -70,4 +71,8 @@ interface GamarraApi {
 
     @GET("users/{userId}/businesses")
     fun getAllBusinessByUserId(@Path("userId") userId: Int, @Header("Authorization") auth: String): Call<List<Business>>
+
+    /* Se puede usar ResponseBody para endpoints que no retornan JSON */
+    @POST("businesses")
+    fun saveBusiness(@Body business: Business, @Header("Authorization") auth: String): Call<ResponseBody>
 }
