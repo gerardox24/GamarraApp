@@ -1,11 +1,13 @@
 package pe.edu.upc.gamarraapp.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_business.view.*
 import pe.edu.upc.gamarraapp.R
+import pe.edu.upc.gamarraapp.controllers.activities.BusinessDetailActivity
 import pe.edu.upc.gamarraapp.models.Business
 import pe.edu.upc.gamarraapp.network.GamarraApi
 
@@ -16,6 +18,12 @@ data class BusinessAdapter(var businesses: List<Business>) : RecyclerView.Adapte
 
         fun bindTo(business: Business) {
             businessNameTextView.text = business.name
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, BusinessDetailActivity::class.java)
+                intent.putExtra("id", business.id)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 

@@ -75,4 +75,7 @@ interface GamarraApi {
     /* Se puede usar ResponseBody para endpoints que no retornan JSON */
     @POST("businesses")
     fun saveBusiness(@Body business: Business, @Header("Authorization") auth: String): Call<ResponseBody>
+
+    @GET("businesses/{id}")
+    fun getBusinessById(@Path("id") id: Int): Call<Business>
 }
