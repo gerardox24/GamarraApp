@@ -31,4 +31,13 @@ class BusinessesActivity : AppCompatActivity() {
             .commit() > 0
     }
 
+    // TODO Se debe comprobar si se usa el evento adecuado para volver
+    //  a obtener la lista de negocios de un usuario
+    override fun onRestart() {
+        super.onRestart()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.businessContent, BusinessesFragment())
+            .commit() > 0
+    }
 }
