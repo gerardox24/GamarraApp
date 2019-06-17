@@ -3,9 +3,10 @@ package pe.edu.upc.gamarraapp.models
 import java.io.Serializable
 
 data class Business(
-    val id: Int,
-    val name: String?,
-    val urllogo: String?
+    var id: Int,
+    var name: String?,
+    var urllogo: String?,
+    var userId: User?
 ) : Serializable {
-    constructor(): this(0, "", "")
+    constructor(): this(0, "", "", User())
 }
