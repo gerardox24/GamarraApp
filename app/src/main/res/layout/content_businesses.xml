@@ -8,5 +8,8 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_businesses"
         tools:context=".controllers.activities.BusinessesActivity">
-
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/businessesRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>
