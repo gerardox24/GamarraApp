@@ -9,7 +9,7 @@
         tools:showIn="@layout/activity_businesses"
         tools:context=".controllers.activities.BusinessesActivity">
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/businessesRecycleView"
+            android:id="@+id/businessesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>
