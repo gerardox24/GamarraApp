@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/activity_business_editor"
+        tools:context=".controllers.activities.BusinessEditorActivity">
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Nombre"
+            android:ems="10"
+            android:id="@+id/editBusinessNameEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="16dp"/>
+
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"
+            android:hint="URL del logo"
+            android:ems="10"
+            android:id="@+id/editBusinessURLLogoEditText"
+            app:layout_constraintTop_toBottomOf="@+id/editBusinessNameEditText"
+            android:layout_margin="16dp"/>
+
+    <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/editBusinessRegisterButton"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
