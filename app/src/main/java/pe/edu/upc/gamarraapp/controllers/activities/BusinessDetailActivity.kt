@@ -1,6 +1,7 @@
 package pe.edu.upc.gamarraapp.controllers.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -37,27 +38,8 @@ class BusinessDetailActivity : AppCompatActivity() {
 
         intent?.extras?.apply {
             val id = getInt("id")
-            val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://quiet-temple-50701.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
 
-            service = retrofit.create<GamarraApi>(GamarraApi::class.java)
-
-            service.getBusinessById(id).enqueue(object: Callback<Business>{
-                override fun onFailure(call: Call<Business>, t: Throwable) {
-                    t?.printStackTrace()
-                }
-
-                override fun onResponse(call: Call<Business>, response: Response<Business>) {
-                    val business = response.body()
-                    Log.d(TAG, Gson().toJson(business))
-                    business?.apply {
-                        businessDetailNameTextView.text = name
-                        supportActionBar?.title = name
-                    }
-                }
-            })
+            loadBusiness(id)
 
             businessDeleteButton.setOnClickListener {
                 service.deleteBusiness(id, "Bearer ${accessToken}").enqueue(object: Callback<ResponseBody> {
@@ -76,6 +58,44 @@ class BusinessDetailActivity : AppCompatActivity() {
                     }
                 })
             }
+
+            businessEditButton.setOnClickListener {
+                val intent = Intent(it.context, BusinessEditorActivity::class.java)
+                intent.putExtra("id", id)
+                it.context.startActivity(intent)
+            }
         }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        intent?.extras?.apply {
+            val id = getInt("id")
+            loadBusiness(id)
+        }
+    }
+
+    fun loadBusiness(id: Int) {
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl("http://quiet-temple-50701.herokuapp.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        service = retrofit.create<GamarraApi>(GamarraApi::class.java)
+
+        service.getBusinessById(id).enqueue(object: Callback<Business>{
+            override fun onFailure(call: Call<Business>, t: Throwable) {
+                t?.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<Business>, response: Response<Business>) {
+                val business = response.body()
+                Log.d(TAG, Gson().toJson(business))
+                business?.apply {
+                    businessDetailNameTextView.text = name
+                    supportActionBar?.title = name
+                }
+            }
+        })
     }
 }

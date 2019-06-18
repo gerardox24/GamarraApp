@@ -20,6 +20,15 @@
     />
 
     <com.google.android.material.button.MaterialButton
+            android:id="@+id/businessEditButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/businessDeleteButton"
+            android:layout_margin="16dp"
+            android:text="Editar"
+    />
+
+    <com.google.android.material.button.MaterialButton
             android:id="@+id/businessDeleteButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

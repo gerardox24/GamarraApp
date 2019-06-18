@@ -81,4 +81,7 @@ interface GamarraApi {
 
     @DELETE("businesses/{id}")
     fun deleteBusiness(@Path("id") id: Int, @Header("Authorization") auth: String): Call<ResponseBody>
+
+    @PUT("businesses")
+    fun updateBusiness(@Body business: Business, @Header("Authorization") auth: String): Call<ResponseBody>
 }

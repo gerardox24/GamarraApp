@@ -16,6 +16,15 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
+                android:name=".controllers.activities.BusinessEditorActivity"
+                android:label="@string/title_activity_business_editor"
+                android:parentActivityName=".controllers.activities.BusinessesActivity"
+                android:theme="@style/NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="pe.edu.upc.gamarraapp.controllers.activities.BusinessesActivity"/>
+        </activity>
+        <activity
                 android:name=".controllers.activities.BusinessDetailActivity"
                 android:label="@string/title_activity_business_detail"
                 android:parentActivityName=".controllers.activities.BusinessesActivity"
