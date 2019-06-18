@@ -84,4 +84,20 @@ interface GamarraApi {
 
     @PUT("businesses")
     fun updateBusiness(@Body business: Business, @Header("Authorization") auth: String): Call<ResponseBody>
+
+    /* Gestión de tiendas*/
+    @GET("users/{userId}/businesses/{businessId}/shops")
+    fun getAllShopsByUserIdAndBusinessId(@Path("userId") userId: Int, @Path("businessId") businessId: Int, @Header("Authorization") auth: String): Call<List<Business>>
+
+    @GET("shops/{id}")
+    fun getShopById(@Path("id") id: Int, @Header("Authorization") auth: String): Call<Business>
+
+    @POST("shops")
+    fun saveShop(@Body shop: Shop, @Header("Authorization") auth: String): Call<ResponseBody>
+
+    @PUT("shops")
+    fun updateShop(@Body shop: Shop, @Header("Authorization") auth: String): Call<ResponseBody>
+
+    @DELETE
+    fun deleteShopById(@Path("id") id: Int, @Header("Authorization") auth: String): Call<ResponseBody>
 }
