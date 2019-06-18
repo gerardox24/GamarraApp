@@ -78,4 +78,7 @@ interface GamarraApi {
 
     @GET("businesses/{id}")
     fun getBusinessById(@Path("id") id: Int): Call<Business>
+
+    @DELETE("businesses/{id}")
+    fun deleteBusiness(@Path("id") id: Int, @Header("Authorization") auth: String): Call<ResponseBody>
 }
