@@ -6,12 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/activity_businesses"
-        tools:context=".controllers.activities.BusinessesActivity">
-    <FrameLayout android:id="@+id/businessContent"
+        tools:showIn="@layout/activity_shops"
+        tools:context=".controllers.activities.ShopsActivity">
+
+    <FrameLayout android:id="@+id/shopsContent"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  app:layout_constraintTop_toTopOf="parent"
                  app:layout_constraintStart_toStartOf="parent"
     />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
