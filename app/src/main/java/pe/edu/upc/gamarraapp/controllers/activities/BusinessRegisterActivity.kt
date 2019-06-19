@@ -1,6 +1,7 @@
 package pe.edu.upc.gamarraapp.controllers.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -84,7 +85,10 @@ class BusinessRegisterActivity : AppCompatActivity() {
                             } else {
                                 Log.i(TAG, "Se creó el negocio ${businessName}")
                                 Log.i(TAG,"location: ${response.headers()["location"]}, id del recurso creado: ${response.headers()["location"]?.substringAfterLast("/","")}")
-                                finish()
+                                val intent = Intent(it.context, BusinessDetailActivity::class.java)
+                                val idInt = response.headers()["location"]?.substringAfterLast("/","")?.toInt()
+                                intent.putExtra("id", idInt)
+                                it.context.startActivity(intent)
                             }
                         }
                     })
