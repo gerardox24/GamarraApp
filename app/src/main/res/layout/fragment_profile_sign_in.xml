@@ -5,14 +5,19 @@
              android:layout_height="match_parent"
              tools:context=".controllers.fragments.ProfileSignInFragment">
 
-    <Button
-            android:layout_marginTop="100dp"
-            android:text="Ver negocios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/businessButton"/>
-    <Button
-            android:layout_marginTop="180dp"
-            android:text="Cerrar sesión"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/logoutButton"/>
+        <Button
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="100dp"
+                android:text="Ver negocios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/businessButton"/>
+        <Button
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="150dp"
+                android:text="Cerrar sesión"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/logoutButton"/>
+
 </FrameLayout>

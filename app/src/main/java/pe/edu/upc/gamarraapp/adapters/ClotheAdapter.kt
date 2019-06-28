@@ -27,6 +27,7 @@ class ClotheAdapter(var clothes: List<Clothe>) : RecyclerView.Adapter<ClotheAdap
         val titleTextView = itemView.titleTextView
         val moreButton = itemView.moreButton
         val clothCard = itemView.clothItem
+        val categoryTextView = itemView.itemCategory
         // TODO Revisar la forma adecuada de inicializar la variable
         var clothId: Int = 5
         lateinit var service: GamarraApi
@@ -46,6 +47,7 @@ class ClotheAdapter(var clothes: List<Clothe>) : RecyclerView.Adapter<ClotheAdap
                 setImageUrl(clothe.urlphoto)
             }
             titleTextView.text = clothe.name
+            categoryTextView.text = clothe.categoryId!!.name
             moreButton.setOnClickListener{
                 // Empieza una nueva actividad para mostra el detalle de la ropa
                 val intent = Intent(it.context, ClothActivity::class.java)

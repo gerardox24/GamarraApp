@@ -39,7 +39,13 @@ class ClothActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<Clothe>, response: Response<Clothe>) {
                     cloth = response?.body()
                     cloth?.apply{
-                        clothNameTextView.text = name
+                        item_name.text = name
+                        item_img.setImageUrl(urlphoto)
+                        item_category.text = categoryId!!.name
+                        item_size.text = "Talla: " + sizeId!!.name
+                        item_description.text = description
+
+                        //clothNameTextView.text = name
                     }
                 }
 

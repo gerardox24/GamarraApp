@@ -45,7 +45,7 @@ interface GamarraApi {
         @Field("email") email: String
     ): Call<UserResponse>
 
-    @GET("cloth/")
+    @GET("clothes/")
     fun getAllClothes() : Call<List<Clothe>>
 
     @GET("clothes/{id}")

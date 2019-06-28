@@ -7,8 +7,8 @@ data class Clothe (
     val name : String?,
     val description: String?,
     val urlphoto: String?,
-    val size_id: Int?,
-    val cathegory_id: Int?
+    val sizeId: Size?,
+    val categoryId: Category?
 ) : Serializable {
-    constructor() : this(0,"","","",0,0)
+    constructor() : this(0,"","","", Size(),Category())
 }
